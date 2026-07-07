@@ -1,0 +1,15 @@
+http:
+  host: "localhost"
+  port: "8081"
+  
+db:
+  url: "jdbc:postgresql://aws-1-ap-southeast-2.pooler.supabase.com:5432/postgres?user=postgres.gikrciwzjugemwikdfnr&password=Subash@4770"
+  driver-class-name: "org.postgresql.Driver"
+  user: "postgres.gikrciwzjugemwikdfnr"
+  password: "![jrJn6lz4JU/0f4qQFhlUdQ==]"
+ 
+sf:
+  username: "subash.e55542393d59@agentforce.com"
+  password: "![jrJn6lz4JU/0f4qQFhlUdQ==]"
+  security-token: "d9nzrc0QD2R8jkiLYBnTK1riD"
+  authorization-url: "https://login.salesforce.com/services/Soap/u/64.0"
