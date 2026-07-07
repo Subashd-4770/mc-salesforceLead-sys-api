@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:os="http://www.mulesoft.org/schema/mule/os" xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties"
+	xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd
+http://www.mulesoft.org/schema/mule/os http://www.mulesoft.org/schema/mule/os/current/mule-os.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="d5441c2a-264b-4996-9fa8-d73a8c692513" >
+		<http:listener-connection host="${http.host}" port="${http.port}" />
+	</http:listener-config>
+	<salesforce:sfdc-config name="Salesforce_Config" doc:name="Salesforce Config" doc:id="b6bb32b3-6321-48da-9d7c-3bba2579d457" >
+		<salesforce:basic-connection username="${sf.username}" password="${secure::sf.password}" securityToken="${sf.security-token}" url="${sf.authorization-url}"/>
+	</salesforce:sfdc-config>
+	<db:config name="Database_Config" doc:name="Database Config" doc:id="790cfb64-bf83-4438-9df8-57b029a12f38" >
+		<db:generic-connection url="${db.url}" driverClassName="${db.driver-class-name}" user="${db.user}" password="${secure::db.password}" useXaTransactions="true"/>
+	</db:config>
+	<configuration-properties doc:name="Configuration properties" doc:id="018d3278-3bdd-4eb3-b066-a67f64c8c4a0" file="config\dev-api-properties.yaml" />
+	<secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="edf6b2d4-7f4d-4bed-90b9-14d5dd3424d3" file="config\dev-api-properties.yaml" key="good@123">
+		<secure-properties:encrypt algorithm="Blowfish" />
+	</secure-properties:config>
+	<os:object-store name="Object_store" doc:name="Object store" doc:id="64e854a8-aed4-4302-98db-a04b916e2c1a" expirationIntervalUnit="HOURS" config-ref="ObjectStore_Config" entryTtl="30"/>
+	<os:config name="ObjectStore_Config" doc:name="ObjectStore Config" doc:id="cb737b71-4160-4fb2-9e01-01ed513ffab5" >
+		<os:connection >
+			<reconnection >
+				<reconnect-forever />
+			</reconnection>
+		</os:connection>
+	</os:config>
+</mule>
